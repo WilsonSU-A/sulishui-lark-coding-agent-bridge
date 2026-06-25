@@ -6,23 +6,23 @@
 
 **兼容说明：** 旧命令 `lark-channel-bridge` 仍然可用，已有 profile 和配置无需迁移。
 
-> 本项目基于 [zarazhangrui/lark-coding-agent-bridge](https://github.com/zarazhangrui/lark-coding-agent-bridge) 构建。
+> 基于 [zarazhangrui/lark-coding-agent-bridge](https://github.com/zarazhangrui/lark-coding-agent-bridge) 构建。
 
-[English README](./README.md) | 关于效果详见[飞书文档](https://larkcommunity.feishu.cn/docx/OaRIdFIRFoLM3xxTmKwcetHqn5e)
+[English README](./README.md) | [效果详见飞书文档](https://larkcommunity.feishu.cn/docx/OaRIdFIRFoLM3xxTmKwcetHqn5e)
 
 ## 安装
 
-\`\`\`bash
+```bash
 npm i -g sulishui-lark-coding-agent-bridge
-\`\`\`
+```
 
 ## 快速开始
 
-\`\`\`bash
+```bash
 sulishui-lark-agent run
-\`\`\`
+```
 
-扫码绑定后即可在飞书里和 Claude Code / Codex CLI 对话。支持后台服务 (macOS/linux/Windows)、多 profile、多工作空间。
+扫码绑定后即可在飞书里和 Claude Code / Codex CLI 对话。
 
 ## License
 
