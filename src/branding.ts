@@ -1,9 +1,0 @@
-export const PACKAGE_NAME = 'sulishui-lark-coding-agent-bridge';
-export const CLI_NAME = 'sulishui-lark-agent';
-export const LEGACY_CLI_NAME = 'lark-channel-bridge';
-export const PRODUCT_NAME = 'Sulishui Lark Coding Agent Bridge';
-export const SHORT_PRODUCT_NAME = 'Sulishui Lark Agent';
-export const SERVICE_NAME = 'sulishui-lark-agent.bot';
-export const LEGACY_SERVICE_NAME = 'lark-channel-bridge.bot';
-export const WINDOWS_TASK_NAME_PREFIX = 'SulishuiLarkAgent.Bot';
-export const LEGACY_WINDOWS_TASK_NAME_PREFIX = 'LarkChannelBridge.Bot';
