@@ -6,12 +6,12 @@
   "packageManager": "pnpm@10.33.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sulishui/sulishui-lark-coding-agent-bridge.git"
+    "url": "git+https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge.git"
   },
   "bugs": {
-    "url": "https://github.com/sulishui/sulishui-lark-coding-agent-bridge/issues"
+    "url": "https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge/issues"
   },
-  "homepage": "https://github.com/sulishui/sulishui-lark-coding-agent-bridge#readme",
+  "homepage": "https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge#readme",
   "bin": {
     "sulishui-lark-agent": "./bin/sulishui-lark-agent.mjs",
     "lark-channel-bridge": "./bin/lark-channel-bridge.mjs"
