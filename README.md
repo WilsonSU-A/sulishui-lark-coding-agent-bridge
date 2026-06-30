@@ -1,165 +1,88 @@
 # sulishui-lark-agent
 
-> Local coding agents meet Feishu/Lark IM — cross-platform
+> Use Feishu / Lark as the chat interface for Claude Code and Codex CLI.
 
-**Claude Code + Codex CLI · macOS + Windows + Linux · one command, zero friction.**
+Supports **Claude Code + Codex CLI**, **macOS + Windows + Linux**, streaming Feishu cards, message reactions, file/image handling, multiple workspaces, and background services.
 
-Bridge your local Claude Code or Codex CLI into Feishu/Lark. Scan a QR, bind a bot, and talk to your agent in chat. Streaming cards, session isolation, file attachments, multi-workspace, interactive buttons. Background daemon on all three platforms.
-
-> Built on [zarazhangrui/lark-coding-agent-bridge](https://github.com/zarazhangrui/lark-coding-agent-bridge) with independent evolution. Legacy `lark-channel-bridge` command still works — no migration needed.
+Project URL: <https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge>
 
 [中文文档](./README.zh.md)
 
 ---
 
-## Why this fork
+## Easiest Installation
 
-| | sulishui-lark-agent | upstream lark-channel-bridge |
-|---|---|---|
-| Claude Code | first-class | first-class |
-| Codex CLI | first-class | first-class |
-| macOS daemon | launchd | launchd |
-| Windows daemon | Task Scheduler | Task Scheduler |
-| Linux daemon | systemd | systemd |
-| CLI name | `sulishui-lark-agent` | `lark-channel-bridge` |
-| Legacy alias | `lark-channel-bridge` | - |
-| Service name | `sulishui-lark-agent.bot` | `lark-channel-bridge.bot` |
+Do not install it manually command by command. Copy this prompt into **Claude Code** or **Codex**:
 
-**Feature parity with upstream, plus independent branding and seamless legacy compatibility.**
+```text
+Please install and configure this Feishu/Lark coding-agent bridge for me:
+
+https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge
+
+Goals:
+1. Install sulishui-lark-agent on this computer.
+2. Automatically check and fix missing prerequisites, including Node.js >= 20.12, npm/corepack/pnpm, git, and an available local claude or codex CLI.
+3. Prefer installing from GitHub with:
+   npm install -g github:WilsonSU-A/sulishui-lark-coding-agent-bridge
+4. If global GitHub installation fails, clone the repo, install dependencies, build it, and use npm link or an equivalent local install.
+5. Do not overwrite my existing ~/.lark-channel config. Preserve and reuse existing claude/codex profiles if present.
+6. After installation, run sulishui-lark-agent --version to verify the command works.
+7. Help me bind a Feishu/Lark PersonalAgent app. If I already have App ID and App Secret, use them; otherwise use the QR/first-run flow.
+8. Start the background service after setup:
+   sulishui-lark-agent start --profile codex --agent codex
+   or start the claude profile if I choose Claude Code.
+9. Finally, run sulishui-lark-agent status --profile codex to verify the bot is online.
+
+Handle everything automatically. Only stop when you need me to enter Feishu App ID, App Secret, scan a QR code, log in to GitHub/Feishu, or approve an administrator permission prompt.
+```
+
+The agent should handle installation, build, startup, and verification for you.
 
 ---
 
-## Prerequisites
+## What It Does
 
-- Node.js >= 20.12.0
-- At least one local agent installed and authenticated: `claude` or `codex`
-- A Feishu/Lark PersonalAgent app (auto-created on first run)
+`sulishui-lark-agent` is a local bridge service. It forwards Feishu/Lark messages to Claude Code or Codex CLI running on your machine, then sends the agent's response back as Feishu cards.
 
-## Install
+You can:
 
-```bash
-npm i -g sulishui-lark-coding-agent-bridge
-```
+- DM the bot and ask Codex or Claude Code to work on your local project.
+- Mention the bot in a group chat.
+- Send files and images for local processing.
+- Use `/status`, `/new`, `/cd`, `/ws`, and `/stop` to control sessions and workspaces.
 
-## Quick Start
+---
+
+## Difference From Upstream
+
+This project is based on [zarazhangrui/lark-coding-agent-bridge](https://github.com/zarazhangrui/lark-coding-agent-bridge) and remains compatible with upstream behavior.
+
+| Capability | sulishui-lark-agent |
+|---|---|
+| Claude Code | Supported |
+| Codex CLI | Supported |
+| macOS | launchd background service |
+| Windows | Task Scheduler background service |
+| Linux | systemd background service |
+| New CLI | `sulishui-lark-agent` |
+| Legacy alias | `lark-channel-bridge` still works |
+| Config compatibility | Reuses `~/.lark-channel`; existing profiles do not need migration |
+
+---
+
+## Manual Commands
+
+If you prefer manual operation:
 
 ```bash
 sulishui-lark-agent run
-```
-
-Terminal QR → scan with Feishu → pick agent → start chatting.
-
-```bash
-# Skip QR with existing app credentials
-sulishui-lark-agent run --app-id cli_xxx
-
-# Bootstrap directly into background daemon
-sulishui-lark-agent start --app-id cli_xxx
-```
-
----
-
-## Run Claude + Codex Side by Side
-
-```bash
-sulishui-lark-agent start --profile claude --agent claude
 sulishui-lark-agent start --profile codex --agent codex
-```
-
-Each profile gets its own credentials, sessions, workspaces, and logs.
-
----
-
-## Background Service
-
-```bash
-sulishui-lark-agent start      # install & start OS-managed daemon
-sulishui-lark-agent status     # check running state
-sulishui-lark-agent stop       # stop daemon
-sulishui-lark-agent restart    # restart
-sulishui-lark-agent unregister # full cleanup
-```
-
-| Platform | Service Backend | Service ID |
-|----------|----------------|------------|
-| macOS | launchd | `ai.sulishui-lark-agent.bot.<profile>` |
-| Windows | Task Scheduler | `SulishuiLarkAgent.Bot.<profile>` |
-| Linux | systemd | `sulishui-lark-agent.bot.<profile>.service` |
-
----
-
-## Features
-
-- **Streaming cards** — replies and tool calls render live on a single Lark card
-- **Session isolation** — each chat, topic, or doc comment keeps its own session
-- **Message batching** — rapid-fire messages merge; `/new` `/cd` `/ws` `/stop` interrupt mid-run
-- **Multi-workspace** — `/cd` to switch projects, `/ws` to save directories
-- **Attachments** — send images/files directly; bridge downloads them locally
-- **Interactive cards** — `/help` `/ws list` `/status` return clickable buttons
-- **Access control** — `/invite` `/remove` `/config` for fine-grained permissions
-
----
-
-## CLI Reference
-
-```
-sulishui-lark-agent run       foreground process
-sulishui-lark-agent start     background daemon
-sulishui-lark-agent stop      stop daemon
-sulishui-lark-agent restart   restart daemon
-sulishui-lark-agent status    daemon status
-sulishui-lark-agent ps        list all running bots
-sulishui-lark-agent kill <id> terminate a bot
-```
-
-### Profile Management
-
-```bash
-sulishui-lark-agent profile create <name> --agent claude|codex
-sulishui-lark-agent profile list
-sulishui-lark-agent profile use <name>
-sulishui-lark-agent profile remove <name>
-sulishui-lark-agent profile export <name>
+sulishui-lark-agent start --profile claude --agent claude
+sulishui-lark-agent status --profile codex
+sulishui-lark-agent stop --profile codex
 ```
 
 ---
-
-## Environment Variables
-
-| Variable | Description |
-|----------|-------------|
-| `LARK_CHANNEL_HOME` | Config root, default `~/.lark-channel` |
-| `LARK_CHANNEL_CODEX_BIN` | Codex CLI binary path, default `codex` |
-
----
-
-## File Layout
-
-| Path | Content |
-|------|---------|
-| `~/.lark-channel/config.json` | profiles and active profile |
-| `~/.lark-channel/profiles/<p>/sessions.json` | session state |
-| `~/.lark-channel/profiles/<p>/workspaces.json` | workspace bindings |
-| `~/.lark-channel/profiles/<p>/secrets.enc` | encrypted credentials |
-| `~/.lark-channel/profiles/<p>/logs/` | log files |
-
----
-
-## Rollback to Upstream
-
-```bash
-pnpm add -g lark-channel-bridge
-# legacy command still works
-lark-channel-bridge run --profile codex
-```
-
-## Syncing from Upstream
-
-```bash
-git fetch upstream
-git merge upstream/main
-pnpm build
-```
 
 ## License
 
