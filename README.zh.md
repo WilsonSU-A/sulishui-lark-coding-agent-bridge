@@ -41,6 +41,32 @@ https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge
 
 ---
 
+## 命令行安装（可选）
+
+更推荐使用上面的 Agent 自动安装方式。如果你熟悉命令行，也可以直接安装：
+
+```bash
+npm install -g github:WilsonSU-A/sulishui-lark-coding-agent-bridge
+sulishui-lark-agent --version
+sulishui-lark-agent run
+```
+
+`run` 会打开飞书/Lark 授权链接或显示官方二维码。请在飞书页面里选择智能体并确认权限，不要手动输入或粘贴 App ID / App Secret。
+
+如果全局安装失败，可以使用源码安装备用路径：
+
+```bash
+git clone https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge.git
+cd sulishui-lark-coding-agent-bridge
+corepack enable
+pnpm install
+pnpm build
+npm link
+sulishui-lark-agent --version
+```
+
+---
+
 ## 安全绑定流程
 
 推荐流程是 **链接跳转 / 官方二维码授权**：
