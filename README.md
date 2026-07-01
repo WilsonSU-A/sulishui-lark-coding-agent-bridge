@@ -43,6 +43,32 @@ The agent should handle environment checks, installation, authorization guidance
 
 ---
 
+## Command-Line Install (Optional)
+
+The agent-driven flow above is recommended. If you prefer the command line:
+
+```bash
+npm install -g github:WilsonSU-A/sulishui-lark-coding-agent-bridge
+sulishui-lark-agent --version
+sulishui-lark-agent run
+```
+
+`run` opens the Feishu/Lark authorization link or shows the official QR code. Choose the agent and approve permissions in Feishu/Lark; do not manually type or paste App ID or App Secret.
+
+If the global install fails, use the source install fallback:
+
+```bash
+git clone https://github.com/WilsonSU-A/sulishui-lark-coding-agent-bridge.git
+cd sulishui-lark-coding-agent-bridge
+corepack enable
+pnpm install
+pnpm build
+npm link
+sulishui-lark-agent --version
+```
+
+---
+
 ## Secure Binding Flow
 
 The recommended flow is **authorization link / official QR code**:
